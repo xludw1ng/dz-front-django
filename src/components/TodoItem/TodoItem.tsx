@@ -9,14 +9,14 @@ export function TodoItem(props: TodoItemProps) {
     const { id, label, done, onChange } = props;
 
     function handleChange() {
-        console.log('Ты нажал на checkbox! Молодчинка')
         onChange(id);
     }
 
     return (
-        <div className="todo-item">
-            <input type="checkbox" checked={done} onChange={handleChange} />
-            <span>{label}</span>
-        </div>
+        <label className={`todo-item ${done ? "todo-item--done" : ""}`}>
+            <input className="todo-checkbox" type="checkbox" checked={done} onChange={handleChange} />
+            <span className="todo-checkmark" aria-hidden="true" />
+            <span className="todo-label">{label}</span>
+        </label>
     )
 }

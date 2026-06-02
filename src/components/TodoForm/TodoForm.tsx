@@ -1,18 +1,14 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
 type TodoFormProps = {
     onAdd: (label: string) => void;
-}
-
-type PreventDefaultEvent = {
-    preventDefault: () => void;
 }
 
 export function TodoForm(props: TodoFormProps) {
     const { onAdd } = props;
     const [label, setLabel] = useState("");
 
-    function handleSubmit(event: PreventDefaultEvent) {
+    function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
         const trimmedLabel = label.trim();
@@ -27,13 +23,17 @@ export function TodoForm(props: TodoFormProps) {
 
     return (
         <form className="todo-form" onSubmit={handleSubmit}>
-            <input
-                type="text"
-                value={label}
-                onChange={(event) => setLabel(event.target.value)}
-                placeholder="Новая задача"
-            />
-            <button type="submit">Добавить задачу</button>
+            <label className="todo-input-wrap">
+                <span className="input-icon" aria-hidden="true">+</span>
+                <input
+                    type="text"
+                    value={label}
+                    onChange={(event) => setLabel(event.target.value)}
+                    placeholder="Новая задача"
+                    aria-label="Текст новой задачи"
+                />
+            </label>
+            <button type="submit">Добавить</button>
         </form>
     )
 }
